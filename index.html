@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discord Bot Invite Link Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #goToIntiveButton, #copyIntive {
+      background-color: #ff073a;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #goToIntiveButton:hover, #copyIntive:hover {
+      background-color: #1aff00;
+    }
+
+    #inviteLink {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    #intiveButtons {
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Discord Bot Invite Link Generator</h1>
+    <form action="#">
+      <label for="botID">Bot ID:</label><br>
+      <input type="text" id="botID" name="botID"><br><br>
+      <button type="button" onclick="generateInviteLink()">Davet Linkini Oluştur</button>
+    </form>
+
+    <p id="inviteLink"></p>
+    <div id="intiveButtons">
+      <button id="goToIntiveButton" onclick="goToIntive()">Go To Invite</button>
+      <button id="copyIntive" onclick="copyInviteLink()">Copy Link</button>
+    </div>
+  </div>
+
+  <script>
+    function generateInviteLink() {
+      var botID = document.getElementById("botID").value;
+      var inviteLinkTemplate = "https://discord.com/api/oauth2/authorize?client_id=" + botID + "&permissions=0&scope=bot%20applications.commands";
+
+      var inviteLink = inviteLinkTemplate.replace("[BOT_ID]", botID);
+
+      document.getElementById("inviteLink").innerText = inviteLink;
+      document.getElementById("inviteLink").style.display = "block";
+      document.getElementById("intiveButtons").style.display = "block";
+    }
+
+        function goToIntive() {
+            var botID = document.getElementById("botID").value;
+            window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${botID}&permissions=0&scope=bot%20applications.commands`;
+        }
+
+        function copyInviteLink() {
+            var botID = document.getElementById("botID").value;
+            var inviteLink = `https://discord.com/api/oauth2/authorize?client_id=${botID}&permissions=0&scope=bot%20applications.commands`;
+            navigator.clipboard.writeText(inviteLink).then(function() {
+                alert("Invite link copied: " + inviteLink);
+            }, function() {
+                alert("Error.");
+            });
+        }
+    </script>
+</body>
+</html>
